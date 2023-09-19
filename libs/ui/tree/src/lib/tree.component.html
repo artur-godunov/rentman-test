@@ -1,0 +1,38 @@
+<mat-checkbox (change)="isIncludingSubfolders = $event.checked">Including subfolders</mat-checkbox>
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodePadding
+        class="tree-node"
+    >
+        <button mat-icon-button disabled></button>
+
+        <mat-checkbox
+            [checked]="selectionModel.isSelected(node)"
+            (change)="selectionModel.toggle(node)"
+        >
+            {{node.name}}
+        </mat-checkbox>
+    </mat-tree-node>
+
+    <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        class="tree-node"
+    >
+        <button mat-icon-button matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+
+        <mat-checkbox
+            [checked]="selectionModel.isSelected(node)"
+            [indeterminate]="descendantsPartiallySelected(node)"
+            (change)="nodeSelectionToggle(node)"
+        >
+            {{node.name}}
+        </mat-checkbox>
+    </mat-tree-node>
+</mat-tree>

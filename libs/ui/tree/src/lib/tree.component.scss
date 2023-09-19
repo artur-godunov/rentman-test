@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  border: 1px solid #000;
+}
+
+.tree-node {
+  transition: background-color .3s;
+
+  &:hover {
+    background-color: transparentize(#000, 0.9);
+  }
+}
